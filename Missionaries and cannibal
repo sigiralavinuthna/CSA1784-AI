@@ -1,0 +1,67 @@
+from collections import deque
+
+
+initial_state = (3, 3, 1) 
+goal_state = (0, 0, 0)
+
+
+moves = [(2, 0), (1, 0), (1, 1), (0, 1), (0, 2)]
+
+
+def bfs():
+   
+    queue = deque()
+    queue.append((initial_state, []))
+    
+    
+    visited = set()
+    
+    while queue:
+        current_state, path = queue.popleft()
+        
+       
+        if current_state == goal_state:
+            return path
+        
+        
+        visited.add(current_state)
+        
+       
+        m, c, b = current_state
+        for move in moves:
+            if b == 1:
+                next_state = (m - move[0], c - move[1], 0)
+            else:
+                next_state = (m + move[0], c + move[1], 1)
+            
+           
+            if is_valid_state(next_state) and next_state not in visited:
+                queue.append((next_state, path + [next_state]))
+        
+    return None
+
+
+def is_valid_state(state):
+    m, c, b = state
+    
+    if m < 0 or m > 3:
+        return False
+    
+    if c < 0 or c > 3:
+        return False
+    
+    
+    if (m > 0 and c > m) or (m < 3 and c < m):
+        return False
+    
+    return True
+
+
+solution = bfs()
+
+if solution:
+    print("Solution found!")
+    for state in solution:
+        print(state)
+else:
+    print("No solution found.")
