@@ -1,0 +1,25 @@
+import numpy as num # Contains a variety of mathematical functions, including random number generators, linear algebra procedures, Fourier transforms, and more
+from sklearn import datasets
+num.random.seed(0)
+X, y = datasets.make_moons(200, noise=0.20)# Generating and plotting the dataset 
+# nodes
+inputlayer_dimensionality = 4 
+outputlayer_dimensionality = 3 
+hiddenlayer_dimensionality = 6
+a1 = num.random.randn(inputlayer_dimensionality, hiddenlayer_dimensionality)# weights for layer 1
+c1 = num.zeros((1, hiddenlayer_dimensionality))# bias for layer 1
+
+a2= num.random.randn(hiddenlayer_dimensionality, hiddenlayer_dimensionality)# weights for layer 2
+c2 = num.zeros((1, hiddenlayer_dimensionality))# bias for layer 2
+
+a3= num.random.randn(hiddenlayer_dimensionality, outputlayer_dimensionality)# weights for layer 3
+c3 = num.zeros((1, outputlayer_dimensionality))
+d1 = X.dot(a1) + c1
+q1 = num.tanh(z1)
+#second hidden layer
+d2 = q1.dot(a2) + c2
+q2 = num.tanh(z2)
+#third hidden layer
+d3 = q2.dot(a3) + c3
+
+probs = num.exp(d3) / num.sum(num.exp(d3), axis=1, keepdims=True)
